@@ -1,7 +1,11 @@
 from contextlib import suppress
 
 from django.db.utils import ProgrammingError
-from extras.plugins import PluginConfig
+
+try:
+    from netbox.plugins import PluginConfig
+except:
+    from extras.plugins import PluginConfig
 from prometheus_client import REGISTRY
 
 from netbox_more_metrics.utilities import enable_metrics

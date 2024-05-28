@@ -4,8 +4,11 @@ from prometheus_client.metrics_core import (
     GaugeMetricFamily,
     InfoMetricFamily,
 )
-from utilities.choices import ChoiceSet
 
+try:
+    from netbox.choices import ChoiceSet
+except:
+    from utilities.choices import ChoiceSet
 
 class MetricTypeChoices(ChoiceSet):
     TYPE_GAUGE = "gauge"

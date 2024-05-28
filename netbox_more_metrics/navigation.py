@@ -1,5 +1,10 @@
-from extras.plugins import PluginMenuButton, PluginMenuItem
-from utilities.choices import ButtonColorChoices
+
+try:
+    from netbox.plugins import PluginMenuButton, PluginMenuItem
+    from netbox.choices import ButtonColorChoices
+except:
+    from extras.plugins import PluginMenuButton, PluginMenuItem
+    from utilities.choices import ButtonColorChoices
 
 metriccollection_buttons = [
     PluginMenuButton(

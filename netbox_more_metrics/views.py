@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models import F, Func, TextField, Value
 from django.http import HttpResponse
 from netbox.views.generic import (
@@ -23,8 +24,10 @@ from netbox_more_metrics.tables import MetricCollectionTable, MetricTable
 
 class MetricCollectionListView(ObjectListView):
     queryset = MetricCollection.objects.all()
-    actions = ("add",)
     table = MetricCollectionTable
+
+    if settings.VERSION.startswith('3.'):
+        actions = ("add",)
 
 
 class MetricCollectionView(ObjectView):
@@ -85,8 +88,9 @@ class MetricListView(ObjectListView):
             output_field=TextField(),
         )
     )
-    actions = ("add",)
     table = MetricTable
+    if settings.VERSION.startswith('3.'):
+        actions = ("add",)
 
 
 class MetricView(ObjectView):
