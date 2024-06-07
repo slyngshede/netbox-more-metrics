@@ -4,8 +4,15 @@ import django.contrib.postgres.fields
 import django.core.validators
 import django.db.models.deletion
 import taggit.managers
-import utilities.json
+
 from django.db import migrations, models
+
+try:
+    from utilities.json import CustomFieldJSONEncoder
+except:
+    from  ..utilities import CustomFieldJSONEncoder
+
+
 
 import netbox_more_metrics.models
 
@@ -15,7 +22,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("contenttypes", "0002_remove_content_type_name"),
-        ("extras", "0084_staging"),
+        # ("extras", "0084_staging"),  # Doesn't appear to be required
     ]
 
     operations = [
@@ -35,7 +42,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=utilities.json.CustomFieldJSONEncoder,
+                        encoder=CustomFieldJSONEncoder,
                     ),
                 ),
                 ("name", models.CharField(max_length=50)),
@@ -70,7 +77,7 @@ class Migration(migrations.Migration):
                     models.JSONField(
                         blank=True,
                         default=dict,
-                        encoder=utilities.json.CustomFieldJSONEncoder,
+                        encoder=CustomFieldJSONEncoder,
                     ),
                 ),
                 ("name", models.CharField(max_length=50)),

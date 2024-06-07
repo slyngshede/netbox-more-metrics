@@ -1,7 +1,9 @@
+import decimal
 import re
 import sys
 
 from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 def enable_metrics():
@@ -18,3 +20,13 @@ def enable_metrics():
         return True
 
     return False
+
+
+class CustomFieldJSONEncoder(DjangoJSONEncoder):
+    """
+    Override Django's built-in JSON encoder to save decimal values as JSON numbers.
+    """
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            return float(o)
+        return super().default(o)
