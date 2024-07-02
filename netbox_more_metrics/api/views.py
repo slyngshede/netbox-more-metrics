@@ -17,6 +17,7 @@ class MetricCollectionViewSet(NetBoxModelViewSet):
 
 class MetricValueTypeOptionsViewSet(viewsets.ViewSet):
     permission_classes = []
+    queryset = None
 
     def list(self, request):
         content_type = request.query_params.get("object_type")
